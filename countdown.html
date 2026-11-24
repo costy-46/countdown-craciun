@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Până la Crăciun</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      position: relative;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1b2f28 0%, #0e1920 65%, #080d12 100%);
+      color: #ffffff;
+      font-family: "Segoe UI", Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .scene-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .sleigh-layer {
+      position: fixed;
+      top: 12%;
+      left: -260px;
+      width: 240px;
+      height: auto;
+      pointer-events: none;
+      z-index: 1;
+      animation: flyAcross 22s linear infinite;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+    }
+
+    @keyframes flyAcross {
+      0% {
+        transform: translateX(-260px) translateY(0px);
+      }
+      25% {
+        transform: translateX(28vw) translateY(-10px);
+      }
+      50% {
+        transform: translateX(55vw) translateY(6px);
+      }
+      75% {
+        transform: translateX(82vw) translateY(-8px);
+      }
+      100% {
+        transform: translateX(115vw) translateY(0px);
+      }
+    }
+
+    .snow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .flake {
+      position: absolute;
+      top: -12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-12px) translateX(0);
+      }
+      50% {
+        transform: translateY(50vh) translateX(10px);
+      }
+      100% {
+        transform: translateY(105vh) translateX(-10px);
+      }
+    }
+
+    .ornament {
+      animation: sway 3.6s ease-in-out infinite;
+      transform-origin: center top;
+    }
+
+    .ornament.delay-1 {
+      animation-delay: -0.9s;
+    }
+
+    .ornament.delay-2 {
+      animation-delay: -1.8s;
+    }
+
+    .ornament.delay-3 {
+      animation-delay: -2.7s;
+    }
+
+    @keyframes sway {
+      0%, 100% {
+        transform: rotate(-4deg);
+      }
+      50% {
+        transform: rotate(4deg);
+      }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #fcd34d;
+      background: rgba(20, 83, 45, 0.55);
+      border: 1px solid rgba(252, 211, 77, 0.35);
+      padding: 5px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .title {
+      font-size: 36px;
+      font-weight: 800;
+      text-align: center;
+      letter-spacing: 0.4px;
+      color: #fffbeb;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.65);
+    }
+
+    .countdown {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .unit {
+      background: rgba(23, 34, 43, 0.92);
+      border: 1.5px solid rgba(251, 191, 36, 0.3);
+      border-radius: 16px;
+      padding: 18px 22px;
+      min-width: 108px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(6px);
+    }
+
+    .unit:nth-child(odd) {
+      border-top: 3px solid #ef4444;
+    }
+
+    .unit:nth-child(even) {
+      border-top: 3px solid #22c55e;
+    }
+
+    .value {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.05;
+      color: #ff4d5a;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .unit:nth-child(even) .value {
+      color: #fbbf24;
+    }
+
+    .label {
+      margin-top: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      color: #e2e8f0;
+    }
+
+    .footer-note {
+      margin-top: 4px;
+      font-size: 13px;
+      color: #e2e8f0;
+      letter-spacing: 0.4px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.75);
+    }
+  </style>
+</head>
+<body>
+  <!-- Brazi de Crăciun și globuri în fundal -->
+  <svg class="scene-bg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <!-- Coline de zăpadă -->
+    <path d="M0 780 Q400 710 820 775 T1600 755 L1600 900 L0 900 Z" fill="#132229" opacity="0.85" />
+    <path d="M0 820 Q520 765 1040 815 T1600 795 L1600 900 L0 900 Z" fill="#182b33" opacity="0.95" />
+
+    <!-- Brazii din fundal -->
+    <g fill="#113827">
+      <polygon points="140,560 95,650 185,650" />
+      <polygon points="140,605 82,715 198,715" />
+      <polygon points="140,660 70,785 210,785" />
+      <rect x="130" y="785" width="20" height="32" fill="#3b2618" />
+
+      <polygon points="1450,550 1405,645 1495,645" />
+      <polygon points="1450,600 1390,710 1510,710" />
+      <polygon points="1450,655 1378,785 1522,785" />
+      <rect x="1440" y="785" width="20" height="32" fill="#3b2618" />
+    </g>
+
+    <!-- Brazi mai mari în stânga și dreapta cu globuri -->
+    <g>
+      <rect x="275" y="795" width="24" height="38" fill="#422919" />
+      <polygon points="287,470 225,585 349,585" fill="#164a32" />
+      <polygon points="287,535 208,675 366,675" fill="#19573b" />
+      <polygon points="287,605 192,795 382,795" fill="#1d6645" />
+      <circle cx="287" cy="464" r="8" fill="#fbbf24" />
+      <circle cx="262" cy="565" r="7" fill="#ef4444" />
+      <circle cx="312" cy="570" r="7" fill="#fbbf24" />
+      <circle cx="242" cy="655" r="8" fill="#38bdf8" />
+      <circle cx="292" cy="645" r="8" fill="#ef4444" />
+      <circle cx="332" cy="662" r="7" fill="#fbbf24" />
+      <circle cx="225" cy="755" r="9" fill="#fbbf24" />
+      <circle cx="282" cy="745" r="9" fill="#ef4444" />
+      <circle cx="342" cy="760" r="9" fill="#38bdf8" />
+    </g>
+
+    <g>
+      <rect x="1301" y="795" width="24" height="38" fill="#422919" />
+      <polygon points="1313,470 1251,585 1375,585" fill="#164a32" />
+      <polygon points="1313,535 1234,675 1392,675" fill="#19573b" />
+      <polygon points="1313,605 1218,795 1408,795" fill="#1d6645" />
+      <circle cx="1313" cy="464" r="8" fill="#fbbf24" />
+      <circle cx="1288" cy="565" r="7" fill="#ef4444" />
+      <circle cx="1338" cy="570" r="7" fill="#fbbf24" />
+      <circle cx="1268" cy="655" r="8" fill="#38bdf8" />
+      <circle cx="1318" cy="645" r="8" fill="#ef4444" />
+      <circle cx="1358" cy="662" r="7" fill="#fbbf24" />
+      <circle cx="1251" cy="755" r="9" fill="#fbbf24" />
+      <circle cx="1308" cy="745" r="9" fill="#ef4444" />
+      <circle cx="1368" cy="760" r="9" fill="#38bdf8" />
+    </g>
+
+    <!-- Globuri agățate sus -->
+    <g class="ornament">
+      <line x1="120" y1="0" x2="120" y2="75" stroke="#fcd34d" stroke-width="2" />
+      <circle cx="120" cy="92" r="18" fill="#ef4444" />
+      <rect x="115" y="71" width="10" height="6" rx="2" fill="#fbbf24" />
+    </g>
+
+    <g class="ornament delay-1">
+      <line x1="210" y1="0" x2="210" y2="52" stroke="#fcd34d" stroke-width="2" />
+      <circle cx="210" cy="67" r="15" fill="#fbbf24" />
+      <rect x="206" y="49" width="8" height="5" rx="2" fill="#f59e0b" />
+    </g>
+
+    <g class="ornament delay-2">
+      <line x1="1390" y1="0" x2="1390" y2="56" stroke="#fcd34d" stroke-width="2" />
+      <circle cx="1390" cy="71" r="15" fill="#22c55e" />
+      <rect x="1386" y="53" width="8" height="5" rx="2" fill="#fbbf24" />
+    </g>
+
+    <g class="ornament delay-3">
+      <line x1="1480" y1="0" x2="1480" y2="82" stroke="#fcd34d" stroke-width="2" />
+      <circle cx="1480" cy="99" r="18" fill="#ef4444" />
+      <rect x="1475" y="78" width="10" height="6" rx="2" fill="#fbbf24" />
+    </g>
+  </svg>
+
+  <!-- Sania lui Moș Crăciun cu el și reni -->
+  <svg class="sleigh-layer" viewBox="0 0 320 110" aria-hidden="true">
+    <!-- Hamuri / frâie -->
+    <line x1="115" y1="68" x2="185" y2="56" stroke="#fbbf24" stroke-width="2" />
+    <line x1="185" y1="56" x2="255" y2="48" stroke="#fbbf24" stroke-width="2" />
+
+    <!-- Sania -->
+    <path d="M35 76 Q75 82 115 74 L106 52 L46 52 Z" fill="#dc2626" />
+    <rect x="44" y="47" width="64" height="6" rx="2" fill="#fbbf24" />
+    <path d="M28 84 Q75 90 124 80" fill="none" stroke="#fde68a" stroke-width="3.5" stroke-linecap="round" />
+    <line x1="52" y1="76" x2="48" y2="85" stroke="#fbbf24" stroke-width="3" />
+    <line x1="98" y1="75" x2="102" y2="83" stroke="#fbbf24" stroke-width="3" />
+
+    <!-- Moș Crăciun în sanie -->
+    <circle cx="76" cy="37" r="9" fill="#fde68a" />
+    <path d="M67 34 Q76 18 92 26 L70 36 Z" fill="#ef4444" />
+    <circle cx="92" cy="26" r="3.5" fill="#ffffff" />
+    <circle cx="75" cy="42" r="6" fill="#ffffff" />
+    <rect x="64" y="44" width="22" height="8" rx="3" fill="#ef4444" />
+
+    <!-- Ren 1 -->
+    <g transform="translate(180, 42)">
+      <ellipse cx="14" cy="18" rx="13" ry="7" fill="#8b5a2b" />
+      <rect x="4" y="22" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <rect x="11" y="23" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <rect x="18" y="22" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <rect x="23" y="21" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <circle cx="28" cy="12" r="5.5" fill="#8b5a2b" />
+      <circle cx="33.5" cy="12" r="2.5" fill="#ef4444" />
+      <path d="M26 7 L24 1 M28 7 L31 1 M25 4 L21 3" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round" />
+    </g>
+
+    <!-- Ren 2 (în față) -->
+    <g transform="translate(248, 34)">
+      <ellipse cx="14" cy="18" rx="13" ry="7" fill="#9a6330" />
+      <rect x="4" y="22" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <rect x="11" y="23" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <rect x="18" y="22" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <rect x="23" y="21" width="3" height="10" rx="1" fill="#5c3a1b" />
+      <circle cx="28" cy="12" r="5.5" fill="#9a6330" />
+      <circle cx="33.5" cy="12" r="2.5" fill="#ef4444" />
+      <path d="M26 7 L24 1 M28 7 L31 1 M25 4 L21 3" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round" />
+    </g>
+  </svg>
+
+  <!-- Ninsoare -->
+  <div class="snow" id="snow"></div>
+
+  <!-- Numărătoarea inversă -->
+  <div class="wrapper">
+    <div class="badge">🎄 Sezonul de Iarnă</div>
+    <div class="title">Până la Crăciun</div>
+
+    <div class="countdown">
+      <div class="unit">
+        <div class="value" id="days">00</div>
+        <div class="label">Zile</div>
+      </div>
+      <div class="unit">
+        <div class="value" id="hours">00</div>
+        <div class="label">Ore</div>
+      </div>
+      <div class="unit">
+        <div class="value" id="minutes">00</div>
+        <div class="label">Minute</div>
+      </div>
+      <div class="unit">
+        <div class="value" id="seconds">00</div>
+        <div class="label">Secunde</div>
+      </div>
+    </div>
+
+    <div class="footer-note">25 Decembrie 2026</div>
+  </div>
+
+  <script>
+    const targetDate = new Date("2026-12-25T00:00:00").getTime();
+
+    function renderCountdown() {
+      const now = Date.now();
+      const distance = Math.max(0, targetDate - now);
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById("days").textContent = String(days).padStart(2, "0");
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    }
+
+    function createSnowflakes() {
+      const snowContainer = document.getElementById("snow");
+      const count = 34;
+
+      for (let i = 0; i < count; i++) {
+        const flake = document.createElement("span");
+        flake.className = "flake";
+        const size = Math.random() * 4 + 2;
+        flake.style.width = `${size}px`;
+        flake.style.height = `${size}px`;
+        flake.style.left = `${Math.random() * 100}%`;
+        flake.style.opacity = (Math.random() * 0.55 + 0.25).toFixed(2);
+        flake.style.animationDuration = `${Math.random() * 8 + 7}s`;
+        flake.style.animationDelay = `${Math.random() * 8}s`;
+        snowContainer.appendChild(flake);
+      }
+    }
+
+    renderCountdown();
+    createSnowflakes();
+    setInterval(renderCountdown, 1000);
+  </script>
+</body>
+</html>
